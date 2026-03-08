@@ -1,0 +1,200 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #2e2e2e;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.shop {
+    --textColor: #e2e2e2;
+    --bgColor: #1b1b1bc9;
+    color: var(--textColor);
+
+    .card {
+        width: 100%;
+        height: 400px;
+        text-align: center;
+
+        .product {
+            margin-top: 5%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            top: 50px;
+            left: 50%;
+            transform: translate(-50%);
+            background-color: #da8f3b;
+            border: 3px solid #1e1e1e;
+            width: 20%;
+            height: 160px;
+            border-radius: 13px;
+
+            .name,
+            .price,
+            .qtd {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                text-shadow: -2px 2px 8px #141414c9;
+
+                .money {
+                    color: #46e408;
+                }
+            }
+        }
+    }
+
+    .value {
+        position: fixed;
+        top: 2%;
+        left: 50%;
+        transform: translate(-50%);
+        background-color: var(--bgColor);
+        width: 250px;
+        height: 50px;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        border-radius: 25px;
+        display: flex;
+
+        .text,
+        .money {
+            font-size: 1.1rem;
+        }
+
+        .money {
+            color: #46e408;
+        }
+    }
+
+    .buttons {
+        display: flex;
+        position: fixed;
+        align-items: center;
+        left: 50%;
+        transform: translate(-50%);
+        bottom: 5%;
+        width: 100%;
+        height: 60px;
+        justify-content: space-around;
+
+        button {
+            height: 35px;
+            width: 130px;
+            font-size: 1rem;
+            border-radius: 12px;
+            background-color: #2d7aee;
+            border: 5px solid #1111;
+            color: #ffffff;
+            border: 1.9px solid var(--bgColor);
+        }
+
+        .add {
+            background-color: #ee8a2d;
+        }
+
+        .limit{
+            background-color: #ee2d2d;
+        }
+    }
+
+    .modalOpen {
+        transition: 350ms;
+        filter: blur(5px);
+    }
+
+    .modalClose {
+        transition: 240ms;
+    }
+
+    /* Responsividade 768px */
+    @media (max-width: 768px) {
+        .card {
+            .product {
+                width: 30%;
+            }
+        }
+
+        .buttons {
+            button {
+                width: 120px;
+                font-size: 0.95rem;
+            }
+        }
+    }
+
+    /* Responsividade 467px */
+    @media (max-width: 467px) {
+        .card {
+            .product {
+                width: 45%;
+                height: 150px;
+                
+                .name, .price, .qtd {
+                    gap: 8px;
+                    font-size: 0.9rem;
+                }
+            }
+        }
+
+        .value {
+            width: 220px;
+            height: 45px;
+            
+            .text, .money {
+                font-size: 1rem;
+            }
+        }
+
+        .buttons {
+            button {
+                width: 100px;
+                height: 32px;
+                font-size: 0.85rem;
+            }
+        }
+    }
+
+    /* Responsividade <340px */
+    @media (max-width: 339px) {
+        .card {
+            .product {
+                width: 70%;
+                height: 140px;
+                
+                .name, .price, .qtd {
+                    gap: 5px;
+                    font-size: 0.8rem;
+                    flex-direction: column;
+                    gap: 2px;
+                }
+            }
+        }
+
+        .value {
+            width: 180px;
+            height: 40px;
+            
+            .text, .money {
+                font-size: 0.85rem;
+            }
+        }
+
+        .buttons {
+            button {
+                width: 80px;
+                height: 30px;
+                font-size: 0.75rem;
+            }
+        }
+    }
+}
