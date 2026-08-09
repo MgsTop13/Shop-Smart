@@ -4,7 +4,11 @@ import AddItemComponent from "../components/addItem.jsx";
 import Limit from "../components/limit.jsx"
 
 export default function Home() {
-    const [itens, setItens] = useState([]);
+    const [itens, setItens] = useState([{
+       name: "a",
+       price: 19,
+       qtd: 2
+    }]);
     const [open, setOpen] = useState(false);
     const [openL, setOpenL] = useState(false);
     const [value, setValue] = useState(0);
@@ -53,6 +57,10 @@ export default function Home() {
             alert(`ATENÇÃO: Você ultrapassou o limite de R$ ${limit}!`);
         }
     }
+    
+    function edit(item){
+       alert(item)
+    }
 
     useEffect(() => {
         calculation();
@@ -83,19 +91,16 @@ export default function Home() {
                 {itens.map((item, index) => (
                     <div className="product" key={index}>
                         <div className="name">
-                            <h2>Nome:</h2>
                             <h3>{item.name}</h3>
-                        </div>
-
-                        <div className="price">
-                            <h2>Preço:</h2>
                             <h3 className="money">R$ {item.price}</h3>
                         </div>
 
                         <div className="qtd">
-                            <h2>Quantidade:</h2>
+                            <h2>Qtd:</h2>
                             <h3>{item.qtd}</h3>
                         </div>
+                        
+                        <button onClick={edit}>Editar</button>
                     </div>
                 ))}
             </section>
