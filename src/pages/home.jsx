@@ -8,10 +8,7 @@ import convertNumToBrl from "../components/convertBrl/convert.js";
 
 export default function Home() {
     const [itens, setItens] = useState([
-        {"id": 1, "name": "uva", "price": 2.99, "qtd": 3},
-        {"id": 2, "name": "Banana", "price": 4.99, "qtd": 1},
-        {"id": 3, "name": "Podre", "price": 2.99, "qtd": 3},
-        {"id": 4, "name": "Seila", "price": 4.99, "qtd": 1}
+        
    ]);
    
     let count = itens.length;
