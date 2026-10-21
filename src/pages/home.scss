@@ -11,64 +11,38 @@ body {
 
 .shop {
     --textColor: #e2e2e2;
-    --bgColor: #1b1b1bc9;
+    --bgColor: rgba(27, 27, 27, 0.85); 
     color: var(--textColor);
+    
+    /* Respiro para os botões fixos não cobrirem os itens */
+    padding-top: 100px; 
+    padding-bottom: 120px; 
 
-    .card {
-        width: 100%;
-        height: 400px;
-        text-align: center;
-
-        .product {
-            margin-top: 5%;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            top: 50px;
-            left: 50%;
-            transform: translate(-50%);
-            background-color: #da8f3b;
-            border: 3px solid #1e1e1e;
-            width: 20%;
-            height: 160px;
-            border-radius: 13px;
-
-            .name,
-            .price,
-            .qtd {
-                display: flex;
-                align-items: center;
-                gap: 15px;
-                text-shadow: -2px 2px 8px #141414c9;
-
-                .money {
-                    color: #46e408;
-                }
-            }
-        }
-    }
-
+    /* --------------------------------------
+       BOTÃO DE VALOR TOTAL (FIXO NO TOPO)
+    --------------------------------------- */
     .value {
         position: fixed;
-        top: 2%;
+        top: 20px;
         left: 50%;
-        transform: translate(-50%);
+        transform: translateX(-50%);
         background-color: var(--bgColor);
-        width: 250px;
-        height: 50px;
-        text-align: center;
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0 25px;
+        height: 55px;
+        border-radius: 30px;
+        display: flex;
         align-items: center;
         justify-content: center;
-        gap: 4px;
-        border-radius: 25px;
-        display: flex;
+        gap: 8px;
+        z-index: 10;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        white-space: nowrap; /* Impede o texto de quebrar em duas linhas */
 
-        .text,
-        .money {
+        .text, .money {
             font-size: 1.1rem;
+            font-weight: bold;
         }
 
         .money {
@@ -76,125 +50,205 @@ body {
         }
     }
 
+    /* --------------------------------------
+       CARDS DA LISTA
+    --------------------------------------- */
+    .card {
+        width: 100%;
+        padding: 0 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+
+        .product {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #da8f3b; 
+            border: 2px solid #1e1e1e;
+            border-radius: 12px;
+            padding: 20px 15px 15px 15px; /* Mais espaço no topo */
+            min-height: 180px; 
+            box-shadow: inset 0 -4px 0 rgba(0,0,0,0.1);
+
+            /* O "X" de deletar */
+            .deleteBtn {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                width: 22px;
+                height: 22px;
+                border-radius: 6px;
+                border: 1px solid #1e1e1e;
+                background-color: #ff4d4d;
+                color: white;
+                font-size: 0.7rem;
+                font-weight: bold;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: 0.2s;
+                z-index: 2;
+
+                &:hover { background-color: #ff1a1a; }
+            }
+
+            .itemInfo {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                margin-top: 25px; /* Empurra o texto pra baixo do botão X */
+                text-shadow: 1px 1px 2px rgba(255,255,255,0.2);
+
+                .topInfo {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    margin-bottom: 5px;
+                    gap: 8px;
+
+                    .productName {
+                        font-size: 1.1rem;
+                        color: #fff;
+                        text-align: left;
+                        word-break: break-word;
+                        max-width: 90px; /* Evita que nomes grandes empurrem o preço */
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+
+                    .productPrice {
+                        font-size: 0.9rem;
+                        color: #46e408;
+                        background-color: rgba(0,0,0,0.2);
+                        padding: 2px 6px;
+                        border-radius: 6px;
+                        white-space: nowrap;
+                    }
+                }
+
+                .productQtd {
+                    font-size: 0.85rem;
+                    text-align: right;
+                    color: #333;
+                    margin-bottom: 8px;
+                    margin-right: 5px;
+                }
+
+                .divider {
+                    width: 85%;
+                    margin: 0 auto 8px auto;
+                    border: none;
+                    border-bottom: 1px solid #333;
+                }
+
+                .subTotal {
+                    font-size: 1.1rem;
+                    color: #222;
+                    font-weight: bold;
+                }
+            }
+
+            .editBtn {
+                width: 100%;
+                padding: 10px;
+                border-radius: 8px;
+                border: 1px solid #1e1e1e;
+                background-color: #f0f0f0;
+                color: #333;
+                font-weight: bold;
+                cursor: pointer;
+                transition: 0.2s;
+                margin-top: 10px;
+
+                &:hover {
+                    background-color: #fff;
+                }
+            }
+        }
+    }
+
+    /* --------------------------------------
+       BOTÕES INFERIORES (FIXOS)
+    --------------------------------------- */
     .buttons {
         display: flex;
         position: fixed;
-        align-items: center;
         left: 50%;
-        transform: translate(-50%);
-        bottom: 5%;
+        transform: translateX(-50%);
+        bottom: 20px;
         width: 100%;
+        max-width: 500px;
         height: 60px;
-        justify-content: space-around;
+        padding: 0 20px;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 10;
+        
+        background-color: var(--bgColor);
+        backdrop-filter: blur(8px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 
         button {
-            height: 35px;
-            width: 130px;
-            font-size: 1rem;
-            border-radius: 12px;
-            background-color: #2d7aee;
-            border: 5px solid #1111;
+            height: 40px;
+            padding: 0 20px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 10px;
             color: #ffffff;
-            border: 1.9px solid var(--bgColor);
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+
+            &:hover { transform: scale(1.05); }
+            &:active { transform: scale(0.95); }
         }
 
         .add {
             background-color: #ee8a2d;
+            flex: 1;
+            margin-right: 10px;
         }
 
-        .limitButton{
+        .limitButton {
             background-color: #ee2d2d;
-            
+            flex: 1;
+            margin-left: 10px;
         }
     }
 
+    /* Efeito de desfoque */
     .modalOpen {
         transition: 350ms;
-        filter: blur(5px);
+        filter: blur(8px);
+        pointer-events: none;
     }
 
     .modalClose {
         transition: 240ms;
     }
 
-    /* Responsividade 768px */
-    @media (max-width: 768px) {
+    /* --------------------------------------
+       RESPONSIVIDADE
+    --------------------------------------- */
+    @media (max-width: 380px) {
         .card {
-            .product {
-                width: 30%;
-            }
+            grid-template-columns: 1fr;
         }
-
+        
         .buttons {
+            bottom: 10px;
             button {
-                width: 120px;
-                font-size: 0.95rem;
-            }
-        }
-    }
-
-    /* Responsividade 467px */
-    @media (max-width: 467px) {
-        .card {
-            .product {
-                width: 45%;
-                height: 150px;
-                
-                .name, .price, .qtd {
-                    gap: 8px;
-                    font-size: 0.9rem;
-                }
-            }
-        }
-
-        .value {
-            width: 220px;
-            height: 45px;
-            
-            .text, .money {
-                font-size: 1rem;
-            }
-        }
-
-        .buttons {
-            button {
-                width: 100px;
-                height: 32px;
                 font-size: 0.85rem;
-            }
-        }
-    }
-
-    /* Responsividade <340px */
-    @media (max-width: 339px) {
-        .card {
-            .product {
-                width: 70%;
-                height: 140px;
-                
-                .name, .price, .qtd {
-                    gap: 5px;
-                    font-size: 0.8rem;
-                    flex-direction: column;
-                    gap: 2px;
-                }
-            }
-        }
-
-        .value {
-            width: 180px;
-            height: 40px;
-            
-            .text, .money {
-                font-size: 0.85rem;
-            }
-        }
-
-        .buttons {
-            button {
-                width: 80px;
-                height: 30px;
-                font-size: 0.75rem;
+                padding: 0 10px;
             }
         }
     }

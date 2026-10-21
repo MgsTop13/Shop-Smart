@@ -1,20 +1,29 @@
 import "./addItem.scss"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import convertNumToBrl from "../convertBrl/convert.js";
+
+
 
 export default function AddItemComponent({saveItem}){
     const [name, setName] = useState("");
     const [price, setPrice] = useState(0);
-    const [qtd, setQtd] = useState(0) //Quantidade;
-
+    const [qtd, setQtd] = useState(0);
+    const [total, setTotal] = useState(0);
+    
     const product = {
         name,
         price,
         qtd
     }
 
-    const Save = () => {
+    function Save(){
         saveItem(product)
     }
+
+    
+    useEffect(() => {
+        setTotal(convertNumToBrl(qtd * price))
+    }, [price, qtd])
 
     return(
         <div className="CardItem">
@@ -23,7 +32,7 @@ export default function AddItemComponent({saveItem}){
                 <input 
                     type="text"
                     value={name}
-                    onChange={(e) => setName(e.target.value)} 
+                    onChange={(e) => setName(e.target.value)}
                 />
             </div>
 
@@ -44,6 +53,8 @@ export default function AddItemComponent({saveItem}){
                     onChange={(e) => setQtd(e.target.value)} 
                 />
             </div>
+            
+             <p>{total}</p>
             <button className="buttonAdd" onClick={Save}>Salvar item</button>
         </div>
     )
