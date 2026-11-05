@@ -7,14 +7,18 @@ import {
   Pressable,
   StyleSheet,
 } from "react-native";
-import {convertNumToBrl, convertBrlToNum} from "../convertBrl/convert.js";
+import { convertNumToBrl, convertBrlToNum } from "../convertBrl/convert.js";
 
 export default function Limit({ saveValue, limit2, onClose }) {
-  const [limit, setLimit] = useState("");
+  const [limit, setLimit] = useState(
+    limit2 ? String(convertBrlToNum(limit2)) : ""
+  );
 
   function Save() {
-    saveValue(convertNumToBrl(limit));
+    const n = Number(String(limit).replace(",", "."));
+    saveValue(isNaN(n) ? 0 : n);
   }
+
 
   return (
     <Modal transparent visible animationType="fade" onRequestClose={onClose}>
@@ -32,7 +36,7 @@ export default function Limit({ saveValue, limit2, onClose }) {
           />
 
           <Text style={styles.currentLimit}>
-            Limite atual: {limit2 ? limit2 : "Nenhum inserido"}
+            Limite atual: {limit2 ? convertNumToBrl(limit2) : "Nenhum inserido"}
           </Text>
 
           <Pressable

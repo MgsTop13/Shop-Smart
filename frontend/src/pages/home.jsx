@@ -6,10 +6,29 @@ import DeleteItemComponent from "../components/delItem/delItem.jsx";
 import Limit from "../components/limit/limit.jsx"
 import convertNumToBrl from "../components/convertBrl/convert.js";
 
+/*Itens para teste:
+    {
+      name: "banana",
+      qtd: 7,
+      price: 5.79
+    },
+
+    {
+      name: "Maça",
+      qtd: 3,
+      price: 1.29
+    },
+
+    {
+      name: "Uva",
+      qtd: 2,
+      price: 4.99
+    }
+*/
+
+
 export default function Home() {
-    const [itens, setItens] = useState([
-        
-   ]);
+    const [itens, setItens] = useState([]);
    
     let count = itens.length;
     const [open, setOpen] = useState(false);

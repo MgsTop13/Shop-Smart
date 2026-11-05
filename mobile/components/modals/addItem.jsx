@@ -7,7 +7,7 @@ import {
   Pressable,
   StyleSheet,
 } from "react-native";
-import {convertNumToBrl} from "../convertBrl/convert.js";
+import { convertNumToBrl } from "../convertBrl/convert.js";
 
 export default function AddItemComponent({ saveItem, onClose }) {
   const [name, setName] = useState("");
@@ -65,15 +65,30 @@ export default function AddItemComponent({ saveItem, onClose }) {
 
           <Text style={styles.totalPreview}>{total}</Text>
 
-          <Pressable
-            style={({ pressed }) => [
-              styles.buttonAdd,
-              pressed && styles.pressed,
-            ]}
-            onPress={Save}
-          >
-            <Text style={styles.buttonText}>Salvar item</Text>
-          </Pressable>
+          {/* Área dos botões organizada */}
+          <View style={styles.buttonsAction}>
+            <Pressable
+              style={({ pressed }) => [
+                styles.buttonBase,
+                styles.buttonCancel,
+                pressed && styles.pressed,
+              ]}
+              onPress={onClose}
+            >
+              <Text style={styles.buttonText}>Sair</Text>
+            </Pressable>
+
+            <Pressable
+              style={({ pressed }) => [
+                styles.buttonBase,
+                styles.buttonAdd,
+                pressed && styles.pressed,
+              ]}
+              onPress={Save}
+            >
+              <Text style={styles.buttonText}>Salvar</Text>
+            </Pressable>
+          </View>
         </View>
       </View>
     </Modal>
@@ -95,8 +110,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1.6,
     borderColor: "#141414",
-    paddingTop: 20,
-    paddingBottom: 40,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
     alignItems: "center",
     gap: 15,
   },
@@ -126,18 +141,34 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#46e408",
     fontWeight: "bold",
+    marginTop: 10,
   },
-  buttonAdd: {
-    backgroundColor: "#ee8a2d",
-    width: "60%",
-    maxWidth: 200,
+  
+  // Estilo do container dos botões
+  buttonsAction: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "80%",
+    maxWidth: 300,
+    marginTop: 20,
+    gap: 15, // Dá um espaço entre os dois botões
+  },
+  
+  // Base para os dois botões ficarem do mesmo tamanho
+  buttonBase: {
+    flex: 1,
     height: 45,
     borderRadius: 12,
     borderWidth: 2,
     borderColor: "#2e2e2e",
-    marginTop: 20,
     justifyContent: "center",
     alignItems: "center",
+  },
+  buttonCancel: {
+    backgroundColor: "#ee2d2d", // Fundo cinza escuro para o Sair
+  },
+  buttonAdd: {
+    backgroundColor: "#ee8a2d", // Fundo laranja para o Salvar
   },
   buttonText: {
     color: "#ffffff",

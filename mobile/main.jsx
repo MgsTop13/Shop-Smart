@@ -14,7 +14,25 @@ import EditItemComponent from "./components/modals/edit.jsx";
 import DeleteItemComponent from "./components/modals/delItem.jsx";
 import Limit from "./components/modals/limit.jsx";
 import {convertNumToBrl, convertBrlToNum} from "./components/convertBrl/convert.js";
+/*Itens para teste:
+    {
+      name: "banana",
+      qtd: 7,
+      price: 5.79
+    },
 
+    {
+      name: "Maça",
+      qtd: 3,
+      price: 1.29
+    },
+
+    {
+      name: "Uva",
+      qtd: 2,
+      price: 4.99
+    }
+*/
 export default function Home() {
   const [itens, setItens] = useState([]);
   const [open, setOpen] = useState(false);
@@ -27,7 +45,7 @@ export default function Home() {
   const [nextId, setNextId] = useState(1);
 
   const { width } = useWindowDimensions();
-  const cardWidth = width <= 380 ? "100%" : "48%";
+  const cardWidth = width <= 380 ? width - 40 : (width - 40 - 15) / 2;
 
   function addItem() {
     setOpen(!open);
@@ -73,16 +91,10 @@ export default function Home() {
     }
 
     setValue(convertNumToBrl(total));
-    convertBrlToNum(limit);
 
-    if (limit > 0 && total > limit) {
-      /*Alert.alert(
+    if (Number(limit) > 0 && total > Number(limit)) {
+      Alert.alert(
         "Atenção",
-        `Você ultrapassou o limite de R$ ${limit}!`
-      );
-      */
-
-      window.alert(
         `Você ultrapassou o limite de R$ ${limit}!`
       );
     }
@@ -100,8 +112,7 @@ export default function Home() {
     const totalFinal = totalSemOItemAtual + precoNovo;
 
     if (limit > 0 && totalFinal > limit) {
-      //Alert.alert("Limite", `A edição ultrapassaria o limite de R$ ${limit}!`); Nao usei pq ta dando erro no navegador, testo dps no cell;
-      window.alert(`A edição ultrapassaria o limite de R$ ${limit}!`);
+      Alert.alert("Limite", `A edição ultrapassaria o limite de R$ ${limit}!`);
       return;
     }
 
@@ -156,7 +167,7 @@ export default function Home() {
         <Text style={styles.valueMoney}>{value}</Text>
         <br />
         <Text style={styles.valueText}>Limite atual:</Text>
-        <Text style={styles.valueMoney}>{limit}</Text>
+        <Text style={styles.valueMoney}>{convertNumToBrl(limit)}</Text>
       </View>
 
       <ScrollView
@@ -290,7 +301,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
     paddingHorizontal: 20,
-    gap: 15,
+    //gap: 15,
   },
   product: {
     backgroundColor: "#da8f3b",
@@ -362,7 +373,7 @@ const styles = StyleSheet.create({
   },
   subTotal: {
     fontSize: 17,
-    color: "#222",
+    color: "#338812",
     fontWeight: "bold",
     textAlign: "center",
   },
