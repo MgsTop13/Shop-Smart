@@ -165,7 +165,6 @@ export default function Home() {
       <View style={styles.value}>
         <Text style={styles.valueText}>O valor total é</Text>
         <Text style={styles.valueMoney}>{value}</Text>
-        <br />
         <Text style={styles.valueText}>Limite atual:</Text>
         <Text style={styles.valueMoney}>{convertNumToBrl(limit)}</Text>
       </View>
