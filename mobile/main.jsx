@@ -13,7 +13,7 @@ import AddItemComponent from "./components/modals/addItem.jsx";
 import EditItemComponent from "./components/modals/edit.jsx";
 import DeleteItemComponent from "./components/modals/delItem.jsx";
 import Limit from "./components/modals/limit.jsx";
-import {convertNumToBrl, convertBrlToNum} from "./components/convertBrl/convert.js";
+import { convertNumToBrl, convertBrlToNum } from "./components/convertBrl/convert.js";
 /*Itens para teste:
     {
       name: "banana",
@@ -71,7 +71,7 @@ export default function Home() {
       setOpen(false);
     }
 
-      
+
     setItens([...itens, { ...item, id: nextId }]);
     setNextId(nextId + 1);
     setOpen(false);
@@ -163,10 +163,14 @@ export default function Home() {
       )}
 
       <View style={styles.value}>
-        <Text style={styles.valueText}>O valor total é</Text>
-        <Text style={styles.valueMoney}>{value}</Text>
-        <Text style={styles.valueText}>Limite atual:</Text>
-        <Text style={styles.valueMoney}>{convertNumToBrl(limit)}</Text>
+        <View style={styles.valueRow}>
+          <Text style={styles.valueText}>O valor total é</Text>
+          <Text style={styles.valueMoney}>{value}</Text>
+        </View>
+        <View style={styles.valueRow}>
+          <Text style={styles.valueText}>Limite atual:</Text>
+          <Text style={styles.valueMoney}>{convertNumToBrl(limit)}</Text>
+        </View>
       </View>
 
       <ScrollView
@@ -191,7 +195,7 @@ export default function Home() {
 
             <View style={styles.itemInfo}>
               <View style={styles.topInfo}>
-                <Text style={styles.productName} numberOfLines={1}>
+                <Text style={styles.productName} numberOfLines={1} ellipsizeMode="tail">
                   {item.name}
                 </Text>
                 <Text style={styles.productPrice}>
@@ -269,27 +273,28 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(27,27,27,0.85)",
     borderWidth: 1,
     borderColor: "rgba(255,255,255,0.1)",
-    paddingHorizontal: 25,
-    height: 55,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     borderRadius: 30,
-    flexDirection: "row",
+    flexDirection: "column", // Muda para coluna para empilhar as linhas
     alignItems: "center",
     justifyContent: "center",
-    gap: 8,
+    gap: 4,
     zIndex: 10,
-    elevation: 4, // sombra no Android
-    shadowColor: "#000", // sombra no iOS
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 15,
+    // ... sombras
+  },
+  valueRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
   },
   valueText: {
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: "bold",
     color: "#e2e2e2",
   },
   valueMoney: {
-    fontSize: 17,
+    fontSize: 15,
     fontWeight: "bold",
     color: "#46e408",
   },
@@ -340,13 +345,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    gap: 8,
     marginBottom: 5,
+    width: "100%", // Garante que ocupe a largura toda do card
   },
   productName: {
     fontSize: 17,
     color: "#fff",
-    maxWidth: 90,
+    flex: 1, // Isso faz o nome ocupar todo o espaço disponível
+    marginRight: 8, // Dá um espacinho entre o nome e o preço
+    // REMOVA o maxWidth: 90 daqui
   },
   productPrice: {
     fontSize: 14,
@@ -355,6 +362,7 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     paddingHorizontal: 6,
     borderRadius: 6,
+    flexShrink: 0, // Impede que o preço seja esmagado
   },
   productQtd: {
     fontSize: 13,
@@ -396,10 +404,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 20,
     alignSelf: "center",
-    width: "100%",
+    width: "90%", // Em vez de 100%, use 90% para não colar nas bordas
     maxWidth: 500,
     height: 60,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10, // Diminuí para dar mais espaço aos botões
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -416,7 +424,6 @@ const styles = StyleSheet.create({
   },
   buttonBase: {
     height: 40,
-    paddingHorizontal: 20,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
@@ -424,7 +431,7 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
-    fontSize: 15,
+    fontSize: 14,
   },
   buttonPressed: {
     opacity: 0.8,
@@ -433,11 +440,11 @@ const styles = StyleSheet.create({
   add: {
     backgroundColor: "#ee8a2d",
     flex: 1,
-    marginRight: 10,
+    marginRight: 5,
   },
   limitButton: {
     backgroundColor: "#ee2d2d",
     flex: 1,
-    marginLeft: 10,
+    marginLeft: 5,
   },
 });
